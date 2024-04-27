@@ -35,17 +35,17 @@ router.post('/lobby/:id/join', async (req, res) => {
         const { username } = req.body;
         // Check if lobby exists
         const lobbyFound = await redis.get(`lobby:${id}`);
-        console.log('lobby found');
-        console.log(lobbyFound);
         if (!lobbyFound)
             return res.status(404).send('Lobby not exists');
         const lobby = JSON.parse(lobbyFound);
         // Check if lobby is full
         if (lobby?.players.length === lobby?.nbPlayers)
             return res.status(400).send('The lobby is full');
+        // Check that the player is not already in lobby
+        if (lobby?.players.includes(username))
+            return res.status(400).send('Player has already joined the lobby');
         // Add the player to the lobby
         lobby?.players.push(username);
-        console.log(lobby);
         await redis.set(`lobby:${id}`, JSON.stringify(lobby));
         res.send(lobby);
     }
