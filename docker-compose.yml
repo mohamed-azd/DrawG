@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  back:
+    build: 
+      context: ./drawg-back
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./drawg-back:/app
+      - /app/node_modules
+    environment:
+      - REDIS_HOST=redis
+    networks:
+      - drawg-back-net
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - drawg-back-net
+
+networks:
+  drawg-back-net:
+    driver: bridge
