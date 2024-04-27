@@ -2,6 +2,7 @@ import { Router } from 'express'
 import Redis from 'ioredis'
 import { randomUUID } from 'crypto'
 import { CreateLobby, Lobby } from '../types/types'
+import { io } from '../../app'
 
 const router = Router()
 
@@ -47,6 +48,8 @@ router.post('/lobby/:id/join', async (req, res) => {
         // Add the player to the lobby
         lobby?.players.push(username)
         await redis.set(`lobby:${id}`, JSON.stringify(lobby))
+        // Emit a socket event
+        io.to(`lobby:${id}`).emit('playerJoined', { username })
         res.send(lobby)
 
     } catch (err) {

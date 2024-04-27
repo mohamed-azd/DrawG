@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const ioredis_1 = __importDefault(require("ioredis"));
 const crypto_1 = require("crypto");
+const app_1 = require("../../app");
 const router = (0, express_1.Router)();
 const REDIS_HOST = process.env.REDIS_HOST;
 const redis = new ioredis_1.default({
@@ -47,6 +48,8 @@ router.post('/lobby/:id/join', async (req, res) => {
         // Add the player to the lobby
         lobby?.players.push(username);
         await redis.set(`lobby:${id}`, JSON.stringify(lobby));
+        // Emit a socket event
+        app_1.io.to(`lobby:${id}`).emit('playerJoined', { username });
         res.send(lobby);
     }
     catch (err) {
