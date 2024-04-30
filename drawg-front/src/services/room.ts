@@ -9,6 +9,11 @@ class Room extends Service {
         const data = { username: username, nbPlayers: nbPlayers }
         return await this.call('POST', '/room', data)
     }
+
+    async join(username: string, roomId: string) {
+        const data = { username: username }
+        return await this.call('POST', `/room/${roomId}/join`, data)
+    }
 }
 
 export default Room

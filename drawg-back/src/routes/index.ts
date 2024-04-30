@@ -49,7 +49,7 @@ router.post('/room/:id/join', async (req, res) => {
         room?.players.push(username)
         await redis.set(`room:${id}`, JSON.stringify(room))
         // Emit a socket event
-        io.to(`room:${id}`).emit('playerJoined', { username })
+        io.to(`room:${id}`).emit('playerJoined', { room: room, newPlayer: username})
         res.send(room)
 
     } catch (err) {
