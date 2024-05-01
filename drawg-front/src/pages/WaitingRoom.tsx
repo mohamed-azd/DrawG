@@ -2,19 +2,21 @@ import { useLocation } from "react-router-dom";
 import { Room } from "../types";
 import { socket } from "../App";
 import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 
 export default function WaitingRoom() {
     const location = useLocation()
     const room: Room = location.state.roomInfos
+    const username: string = location.state.username
     const [players, setPlayers] = useState(room.players)
-    const [nbPlayers, setNbPlayers] = useState(room.nbPlayers)
+    const [nbPlayersMax, setNbPlayersMax] = useState(room.nbPlayersMax)
 
     useEffect(() => {
 
         const handlePlayerJoined = (data: any) => {
             alert(`New player joined : ${data.newPlayer}`)
             setPlayers(data.room.players)
-            setNbPlayers(data.room.nbPlayers)
+            setNbPlayersMax(data.room.nbPlayersMax)
         }
 
         socket.on(`playerJoined`, handlePlayerJoined)
@@ -26,6 +28,6 @@ export default function WaitingRoom() {
 
 
     return (
-        <p>Players : {players.length} / {nbPlayers}</p>
+        <p>Players : {players.length} / {nbPlayersMax}</p>
     )
 }

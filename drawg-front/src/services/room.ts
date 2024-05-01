@@ -5,8 +5,8 @@ class Room extends Service {
         super()
     }
 
-    async create(username: string, nbPlayers: number) {
-        const data = { username: username, nbPlayers: nbPlayers }
+    async create(username: string, nbPlayersMax: number) {
+        const data = { username: username, nbPlayersMax: nbPlayersMax }
         return await this.call('POST', '/room', data)
     }
 

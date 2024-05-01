@@ -13,7 +13,7 @@ export default function Home() {
         const room = new Room()
         const response = await room.create(username, 5)
         socket.emit('joinRoom', (response.data.id))
-        navigate(`/room/${response.data.id}`, { state: { roomInfos: response.data } })
+        navigate(`/room/${response.data.id}`, { state: { roomInfos: response.data, username: username } })
     }
 
     async function join() {

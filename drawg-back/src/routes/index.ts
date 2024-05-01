@@ -14,13 +14,13 @@ const redis = new Redis({
 
 router.post('/room', async (req, res, next) => {
     try {
-        const { username, nbPlayers }: CreateRoom = req.body
+        const { username, nbPlayersMax }: CreateRoom = req.body
         const idRoom = randomUUID()
         let room = {
             id: idRoom,
             owner: username,
             players: [username],
-            nbPlayers: nbPlayers
+            nbPlayersMax: nbPlayersMax
         }
 
         await redis.set(`room:${idRoom}`, JSON.stringify(room))
@@ -42,7 +42,7 @@ router.post('/room/:id/join', async (req, res) => {
         if (!roomFound) return res.status(404).send('Room not exists')
         const room : Room = JSON.parse(roomFound)
         // Check if room is full
-        if (room?.players.length === room?.nbPlayers) return res.status(400).send('The room is full')
+        if (room?.players.length === room?.nbPlayersMax) return res.status(400).send('The room is full')
         // Check that the player is not already in room
         if (room?.players.includes(username)) return res.status(400).send('Player has already joined the room')
         // Add the player to the room
