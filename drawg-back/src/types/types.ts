@@ -3,9 +3,14 @@ export type CreateRoom = {
     nbPlayersMax: number
 }
 
-export type Room = {
+export type PlayerFromRedis = {
+    username: string,
+    hasDrawn: boolean
+}
+
+export type RoomFromRedis = {
     id: string,
-    owner: string,
-    players: Array<string>,
+    owner: PlayerFromRedis,
+    players: Array<PlayerFromRedis>,
     nbPlayersMax: number
-} | null
+}

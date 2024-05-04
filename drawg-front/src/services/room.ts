@@ -1,6 +1,6 @@
 import Service from "./service";
 
-class Room extends Service {
+class RoomService extends Service {
     constructor() {
         super()
     }
@@ -14,6 +14,10 @@ class Room extends Service {
         const data = { username: username }
         return await this.call('POST', `/room/${roomId}/join`, data)
     }
+
+    async launchGame(roomId: string) {
+        return await this.call('POST', `/room/${roomId}/launch`, { roomId })
+    }
 }
 
-export default Room
+export default RoomService

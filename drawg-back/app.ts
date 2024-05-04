@@ -3,6 +3,8 @@ import routes from "./src/routes/index";
 import { Server } from "socket.io";
 import cors from "cors";
 import http from 'http';
+import { initializeSockets } from "./src/sockets";
+import { Redis } from "ioredis";
 
 const app = express();
 
@@ -16,14 +18,13 @@ export const io = new Server(server, {
   cors: { origin: "http://localhost:5173" }
 });
  
-io.on("connection", (socket) => {
-  console.log(socket.id);
+const REDIS_HOST = process.env.REDIS_HOST
 
-  socket.on('joinRoom', (roomId: string) => {
-    socket.join(`room:${roomId}`)
-    console.log(`Socket ${socket.id} has joined room ${roomId}`)
-  })
-});
+export const redis = new Redis({
+    host: REDIS_HOST
+})
+
+initializeSockets(io)
 
 
 server.listen(3000, () => {

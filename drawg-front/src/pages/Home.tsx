@@ -1,8 +1,8 @@
 import { Button } from "react-bootstrap"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import Room from "../services/room"
 import { socket } from "../App"
+import RoomService from "../services/room"
 
 export default function Home() {
     const navigate = useNavigate()
@@ -10,17 +10,17 @@ export default function Home() {
     const [roomId, setRoomId] = useState('') 
      
     async function createRoom() {
-        const room = new Room()
+        const room = new RoomService()
         const response = await room.create(username, 5)
         socket.emit('joinRoom', (response.data.id))
         navigate(`/room/${response.data.id}`, { state: { roomInfos: response.data, username: username } })
     }
 
     async function join() {
-        const room = new Room()
+        const room = new RoomService()
         const response = await room.join(username, roomId)
         socket.emit('joinRoom', (response.data.id))
-        navigate(`/room/${roomId}`, { state: { roomInfos: response.data } })
+        navigate(`/room/${roomId}`, { state: { roomInfos: response.data, username: username } })
     }
 
   return (
