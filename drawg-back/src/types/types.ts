@@ -12,5 +12,6 @@ export type RoomFromRedis = {
     id: string,
     owner: PlayerFromRedis,
     players: Array<PlayerFromRedis>,
-    nbPlayersMax: number
+    nbPlayersMax: number,
+    isPlaying: boolean,
 }

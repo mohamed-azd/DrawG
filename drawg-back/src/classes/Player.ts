@@ -11,11 +11,12 @@ class Player {
         return this.username
     }
 
-    /**
-     * If a player has already drawn
-     */
     hasAlreadyDrawn(): boolean {
         return this.hasDrawn
+    }
+
+    becomeDrawer() {
+        this.hasDrawn = true
     }
 
     getData() {

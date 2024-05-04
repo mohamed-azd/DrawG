@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Room } from "../types";
 import { socket } from "../App";
 import { useEffect, useState } from "react";
@@ -6,6 +6,7 @@ import { Button } from "react-bootstrap";
 import RoomService from "../services/room";
 
 export default function WaitingRoom() {
+    const navigate = useNavigate()
     const location = useLocation()
     const room: Room = location.state.roomInfos
     const username: string = location.state.username
@@ -13,9 +14,9 @@ export default function WaitingRoom() {
     const [nbPlayersMax, setNbPlayersMax] = useState(room.nbPlayersMax)
 
 
-    async function launchGame() {
+    async function startGame() {
         const roomService = new RoomService()
-        const data = await roomService.launchGame(room.id)
+        await roomService.startGame(room.id, username)
     }
 
     useEffect(() => {
@@ -25,10 +26,17 @@ export default function WaitingRoom() {
             setNbPlayersMax(data.room.nbPlayersMax)
         }
 
+        const handleGameStarted = (data: any) => {
+            let navigationData = { username: username, data: data }
+            navigate(`/room/${data.room.id}/game`, { state: navigationData })
+        }
+
         socket.on(`playerJoined`, handlePlayerJoined)
+        socket.on(`gameStarted`, handleGameStarted)
 
         return () => {
             socket.off('playerJoined', handlePlayerJoined);
+            socket.off(`gameStarted`, handleGameStarted)
         };
     }, [])
 
@@ -41,7 +49,7 @@ export default function WaitingRoom() {
             </div>
 
             {room.owner.username === username ? (
-                <Button onClick={async () => await launchGame()}>Lancer la partie</Button>
+                <Button onClick={async () => await startGame()}>Lancer la partie</Button>
             ) : (
                 <p>Wait for {room.owner.username} to start the game</p>
             )}

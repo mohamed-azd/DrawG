@@ -15,8 +15,8 @@ class RoomService extends Service {
         return await this.call('POST', `/room/${roomId}/join`, data)
     }
 
-    async launchGame(roomId: string) {
-        return await this.call('POST', `/room/${roomId}/launch`, { roomId })
+    async startGame(roomId: string, username: string) {
+        return await this.call('POST', `/room/${roomId}/start`, { username })
     }
 }
 

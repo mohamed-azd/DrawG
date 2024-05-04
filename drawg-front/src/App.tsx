@@ -3,6 +3,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Home from './pages/Home'
 import WaitingRoom from './pages/WaitingRoom'
 import { io } from "socket.io-client";
+import { GameView } from './pages/GameView';
 
 export const socket = io('http://localhost:3000')
 
@@ -14,6 +15,7 @@ function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
     { path: "/room/:id", element: <WaitingRoom /> },
+    { path: "/room/:id/game", element: <GameView /> },
   ])
 
   return (

@@ -5,12 +5,14 @@ class Room {
     private owner: Player
     private players: Array<Player>
     private nbPlayersMax: number
+    private isPlaying: boolean
 
-    constructor(id: string, owner: Player, players: Array<Player>, nbPlayersMax: number) {
+    constructor(id: string, owner: Player, players: Array<Player>, nbPlayersMax: number, isPlaying?: boolean) {
         this.id = id
         this.owner = owner
         this.players = players
         this.nbPlayersMax = nbPlayersMax
+        this.isPlaying = isPlaying ?? false
     }
     
     getData() { 
@@ -19,7 +21,16 @@ class Room {
             owner: this.owner.getData(),
             players: this.players.map((player) => player.getData()),
             nbPlayersMax: this.nbPlayersMax,
+            isPlaying: this.isPlaying
         }
+    }
+
+    isCurrentlyPlaying(): boolean {
+        return this.isPlaying
+    }
+
+    setIsPlaying(value: boolean) {
+        this.isPlaying = value
     }
 
     isFull(): boolean {
@@ -33,6 +44,18 @@ class Room {
 
     addPlayer(player: Player) {
         this.players.push(player)
+    }
+
+    defineDrawer(): Player | undefined {
+        let drawer
+        for (let player of this.players) {
+            if (!player.hasAlreadyDrawn()) {
+                player.becomeDrawer()
+                drawer = player
+                break
+            }
+        }
+        return drawer
     }
 }
 
