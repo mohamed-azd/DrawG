@@ -14,11 +14,18 @@
   align-items: center;
 }
 
+#gameView {
+  display: flex;
+  height: 100vh;
+}
+
 #draw-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  gap: 2%;
   width: 75%;
-  height: 100vh;
+  height: 100%;
   align-items: center;
 }
 
