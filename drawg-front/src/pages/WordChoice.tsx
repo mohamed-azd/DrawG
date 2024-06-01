@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { WordList } from "../components/wordList"
 import RoomService from "../services/room"
@@ -11,17 +11,15 @@ export function WordChoice() {
     const drawer = location.state.data.drawer
     const currentUser = location.state.currentUser
     const room = location.state.data.room
-    const [wordToGuess, setWordToGuess] = useState('')
 
     async function onChoose(word: string) {
         const roomService = new RoomService()
         await roomService.chooseWord(room.id, word)
-        setWordToGuess(word)
     }
 
     useEffect(() => {
         const handleRoundStarted = (data: any) => {
-            let navigationData = { currentUser, drawer, room, wordToGuess }
+            let navigationData = { currentUser, drawer, room }
             navigate(`/room/${data.room.id}/game`, { state: navigationData })
         }
 

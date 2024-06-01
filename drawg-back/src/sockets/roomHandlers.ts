@@ -29,4 +29,9 @@ export function setupRoomHandlers(socket: Socket, io: Server) {
             }
         }
     })
+
+    socket.on('draw', (data: { roomId: string, canvasData: string }) => {
+        console.log('is drawing')
+        io.to(`room:${data.roomId}`).emit('isDrawing', data)
+    })
 }
