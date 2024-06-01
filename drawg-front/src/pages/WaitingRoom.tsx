@@ -27,8 +27,8 @@ export default function WaitingRoom() {
         }
 
         const handleGameStarted = (data: any) => {
-            let navigationData = { username: username, data: data }
-            navigate(`/room/${data.room.id}/game`, { state: navigationData })
+            let navigationData = { currentUser: { username: username }, data: data }
+            navigate(`/room/${data.room.id}/wordChoice`, { state: navigationData })
         }
 
         socket.on(`playerJoined`, handlePlayerJoined)

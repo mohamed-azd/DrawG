@@ -6,6 +6,7 @@ class Room {
     private players: Array<Player>
     private nbPlayersMax: number
     private isPlaying: boolean
+    private wordToGuess?: string
 
     constructor(id: string, owner: Player, players: Array<Player>, nbPlayersMax: number, isPlaying?: boolean) {
         this.id = id
@@ -15,14 +16,18 @@ class Room {
         this.isPlaying = isPlaying ?? false
     }
     
-    getData() { 
-        return {
+    getData()  {
+        const data: any = {
             id: this.id,
             owner: this.owner.getData(),
             players: this.players.map((player) => player.getData()),
             nbPlayersMax: this.nbPlayersMax,
-            isPlaying: this.isPlaying
-        }
+            isPlaying: this.isPlaying,
+        } 
+
+        if (this.wordToGuess) data['wordToGuess'] = this.wordToGuess
+
+        return data
     }
 
     isCurrentlyPlaying(): boolean {
@@ -56,6 +61,14 @@ class Room {
             }
         }
         return drawer
+    }
+
+    setWordToGuess(word: string) {
+        this.wordToGuess = word
+    }
+
+    guess(word: string): boolean {
+        return word.toLowerCase() === this.wordToGuess?.toLowerCase()
     }
 }
 

@@ -18,6 +18,10 @@ class RoomService extends Service {
     async startGame(roomId: string, username: string) {
         return await this.call('POST', `/room/${roomId}/start`, { username })
     }
+
+    async chooseWord(roomId: string, word: string) {
+        return await this.call('POST', `/room/${roomId}/wordChoice`, { word })
+    }
 }
 
 export default RoomService

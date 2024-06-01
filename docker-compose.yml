@@ -11,18 +11,33 @@ services:
       - ./drawg-back:/app
       - /app/node_modules
     environment:
-      - REDIS_HOST=redis
+      - REDIS_HOST=redis-drawg
     networks:
       - drawg-back-net
     depends_on:
       - redis
 
   redis:
+    container_name: redis-drawg
     image: redis:alpine
     ports:
       - "6379:6379"
     networks:
       - drawg-back-net
+
+  redis-insight:
+    image: redis/redisinsight:latest
+    restart: always
+    ports:
+      - "5540:5540"
+    volumes:
+      - redis-insight:/data
+    networks:
+      - drawg-back-net
+
+
+volumes:
+  redis-insight:
 
 networks:
   drawg-back-net:

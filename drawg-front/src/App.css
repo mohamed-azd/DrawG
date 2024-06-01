@@ -5,3 +5,11 @@
 #content {
   height: 100vh;
 }
+
+#wordList {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+  align-items: center;
+}
