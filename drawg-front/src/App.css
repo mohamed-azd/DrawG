@@ -14,9 +14,22 @@
   align-items: center;
 }
 
+#game {
+  height: 100vh;
+}
+
+#wordToGuess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  width: 75%;
+}
+
 #gameView {
   display: flex;
-  height: 100vh;
+  align-items: center;
+  height: 85vh;
 }
 
 #draw-container {
@@ -27,8 +40,70 @@
   width: 75%;
   height: 100%;
   align-items: center;
+  background-color: rgb(68, 255, 0);
 }
 
 .canvas {
   border: 2px solid black;
+}
+
+#chat-container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: aqua;
+  width: 20%;
+}
+
+#chatBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background-color: blueviolet;
+  width: 100%;
+  height: 70%;
+}
+
+#chatTitle {
+  background-color: yellow;
+}
+
+#chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  background-color: chocolate;
+  padding: 5%;
+  width: 90%;
+  height: 70%;
+  overflow-y: auto;
+}
+
+#chatFooter {
+  input {
+    width: 75%;
+  }
+  display: flex;
+  justify-content: space-between;
+  background-color: fuchsia;
+  width: 90%;
+}
+
+.message {
+  padding-left: 2%;
+  padding-right: 2%;
+  width: fit-content;
+  max-width: 80%;
+  text-wrap: wrap;
+}
+
+.messageFromOther {
+  background-color: greenyellow;
+}
+
+.messageFromUser {
+  align-self: end;
+  background-color: cornflowerblue;
 }

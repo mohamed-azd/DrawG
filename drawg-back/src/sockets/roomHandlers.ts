@@ -34,4 +34,9 @@ export function setupRoomHandlers(socket: Socket, io: Server) {
         console.log('is drawing')
         io.to(`room:${data.roomId}`).emit('isDrawing', data)
     })
+
+    socket.on('sendMessage', (data: { roomId: string, message: string, username: string }) => {
+        console.log(data)
+        io.to(`room:${data.roomId}`).emit('receiveMessage', { message: data.message, username: data.username })
+    })
 }
