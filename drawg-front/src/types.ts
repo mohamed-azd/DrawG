@@ -2,12 +2,15 @@ export type Room = {
     id: string,
     owner: Player,
     players: Array<Player>,
-    nbPlayersMax: number
+    nbPlayersMax: number,
+    isPlaying: boolean,
+    wordToGuess: string
 }
 
 export type Player = {
     username: string,
-    hasDrawn: boolean
+    hasDrawn: boolean,
+    score: number
 }
 
 export type Message = {

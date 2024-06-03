@@ -5,7 +5,8 @@ export type CreateRoom = {
 
 export type PlayerFromRedis = {
     username: string,
-    hasDrawn: boolean
+    hasDrawn: boolean,
+    score: number
 }
 
 export type RoomFromRedis = {
@@ -14,4 +15,5 @@ export type RoomFromRedis = {
     players: Array<PlayerFromRedis>,
     nbPlayersMax: number,
     isPlaying: boolean,
+    wordToGuess: string
 }

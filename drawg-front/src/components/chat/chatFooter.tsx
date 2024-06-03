@@ -11,7 +11,7 @@ export default function ChatFooter(props: { roomId: string, username: string }) 
 
     return (
         <div id="chatFooter">
-            <input type="text" name="" id="" placeholder="caca" value={message} onChange={(e) => setMessage(e.target.value)} />
+            <input type="text" name="" id="" placeholder="exemple" value={message} onChange={(e) => setMessage(e.target.value)} />
             <button type="button" onClick={() => onSend()}>Send</button>
         </div>
     )

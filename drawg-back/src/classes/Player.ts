@@ -1,10 +1,12 @@
 class Player {
     private username: string
     private hasDrawn: boolean
+    private score: number
 
-    constructor (username: string, hasDrawn?: boolean) {
+    constructor (username: string, hasDrawn?: boolean, score?: number) {
         this.username = username
         this.hasDrawn = hasDrawn ?? false
+        this.score = score ?? 0
     }
 
     getUsername(): string {
@@ -19,10 +21,19 @@ class Player {
         this.hasDrawn = true
     }
 
+    getScore() {
+        return this.score
+    }
+
+    setScore(score: number) {
+        this.score = score
+    }
+
     getData() {
         return {
             username: this.username,
             hasDrawn: this.hasDrawn,
+            score: this.score
         }
     }
 }
