@@ -1,44 +1,19 @@
 import { useLocation } from "react-router-dom"
 import MyCanvas from "../components/myCanvas"
-import { useEffect, useState } from "react"
-import { socket } from "../App"
+import { useContext } from "react"
+import { SocketContext } from "../App"
 import { Room } from "../types"
 import ChatBox from "../components/chat/chatBox"
-import { Messages } from "../types/types"
+import { useDraw } from "../hooks/useDraw"
+import useChat from "../hooks/useChat"
 
 export function GameView() {
     const location = useLocation()
-    const [canvasData, setCanvasData] = useState('')
-    const [messages, setMessages] = useState<Messages>([])
+    const socket = useContext(SocketContext)
+    const canvasData = useDraw()
+    const messages = useChat()
     const room: Room = location.state.room
     const { currentUser, drawer, wordToGuess } = location.state
-
-    useEffect(() => {
-        console.log('useEffect draw')
-        const handleDrawing = (data: any) => {
-            setCanvasData(data.canvasData)
-        }
-
-        socket.on('isDrawing', handleDrawing)
-
-        return () => {
-            socket.off(`isDrawing`, handleDrawing)
-        };
-    }, [socket])
-
-    useEffect(() => {
-        console.log('useEffect message')
-        const handleReceiveMessage = (data: { message: string, username: string }) => {
-            setMessages(prevMessages => [...prevMessages, data])
-        }
-
-        socket.on('receiveMessage', handleReceiveMessage)
-
-        return () => {
-            socket.off('receiveMessage', handleReceiveMessage);
-        };
-    }, [socket, messages])
-
 
     return (
         <div id="game">

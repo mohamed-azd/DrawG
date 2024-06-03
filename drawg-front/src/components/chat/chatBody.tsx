@@ -1,4 +1,4 @@
-import { Messages } from "../../types/types"
+import { Messages } from "../../types"
 
 export default function ChatBody(props: { currentUserName: string, messages: Messages }) {
     let key = 0

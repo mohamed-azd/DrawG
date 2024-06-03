@@ -1,6 +1,6 @@
 import ChatBody from "./chatBody";
 import ChatFooter from "./chatFooter";
-import { Messages } from "../../types/types";
+import { Messages } from "../../types";
 
 export default function ChatBox(props: { roomId: string, currentUser: { username: string }, messages: Messages }) {
     return (

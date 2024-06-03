@@ -14,6 +14,7 @@ const router = Router()
 router.post('/room', async (req, res) => {
     try {
         const { username, nbPlayersMax }: CreateRoom = req.body
+        console.log(req.body)
         const idRoom = randomUUID()
         const player = new Player(username)
         const room = new Room(idRoom, player, [player], nbPlayersMax)

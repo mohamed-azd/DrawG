@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router-dom"
 import { WordList } from "../components/wordList"
 import RoomService from "../services/room"
-import { socket } from "../App"
+import { SocketContext } from "../App"
 
 export function WordChoice() {
     const navigate = useNavigate()
     const location = useLocation()
+    const socket = useContext(SocketContext)
     const words: Array<string> = location.state.data.words
     const drawer = location.state.data.drawer
     const currentUser = location.state.currentUser

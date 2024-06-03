@@ -1,13 +1,14 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Room } from "../types";
-import { socket } from "../App";
-import { useEffect, useState } from "react";
+import { SocketContext } from "../App";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import RoomService from "../services/room";
 
 export default function WaitingRoom() {
     const navigate = useNavigate()
     const location = useLocation()
+    const socket = useContext(SocketContext)
     const room: Room = location.state.roomInfos
     const username: string = location.state.username
     const [players, setPlayers] = useState(room.players)

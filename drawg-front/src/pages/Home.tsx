@@ -1,11 +1,12 @@
 import { Button } from "react-bootstrap"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { socket } from "../App"
+import { SocketContext } from "../App"
 import RoomService from "../services/room"
 
 export default function Home() {
     const navigate = useNavigate()
+    const socket = useContext(SocketContext)
     const [username, setUsername] = useState('')
     const [roomId, setRoomId] = useState('') 
      
