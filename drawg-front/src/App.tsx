@@ -1,4 +1,5 @@
 import "./App.css";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import WaitingRoom from "./pages/WaitingRoom";
@@ -19,6 +20,14 @@ socket.on("connection", (socketObj) => {
   console.log(socketObj.id);
 });
 
+const theme = extendTheme({
+  colors: {
+    primary: "#295784",
+    secondary: "#fcfffe",
+    third: "#78C0E0",
+  },
+});
+
 function App() {
   const router = createBrowserRouter([
     { path: "/", element: <Home /> },
@@ -29,9 +38,11 @@ function App() {
   ]);
 
   return (
-    <SocketContext.Provider value={socket}>
-      <RouterProvider router={router}></RouterProvider>
-    </SocketContext.Provider>
+    <ChakraProvider theme={theme}>
+      <SocketContext.Provider value={socket}>
+        <RouterProvider router={router}></RouterProvider>
+      </SocketContext.Provider>
+    </ChakraProvider>
   );
 }
 

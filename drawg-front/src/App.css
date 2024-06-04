@@ -1,3 +1,8 @@
+#root {
+  /* background-color: #bb0205; */
+  background-color: #78C0E0;
+}
+
 #homePage {
   height: 100vh;
 }
@@ -106,4 +111,57 @@
 .messageFromUser {
   align-self: end;
   background-color: cornflowerblue;
+}
+
+#logoContainer {
+  width: 15vw;
+  height: 20vh;
+  margin: auto;
+}
+
+#homeContent {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 50vw;
+  height: 60vh;
+
+  h4 {
+    display: flex;
+    font-weight: 700;
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+#homeInputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5%;
+  width: 30%;
+  
+  button {
+    width: 100%;
+  }
+}
+
+#homeButtons {
+  display: flex;
+  gap: 5%;
+}
+
+#joinPopupContent {
+  display: flex;
+  flex-direction: column;
+
+  h4 {
+    color: #fcfffe;
+  }
+}
+
+#joinPopupBody {
+  display: flex;
+  gap: 5%;
+  margin-top: 2%;
 }
