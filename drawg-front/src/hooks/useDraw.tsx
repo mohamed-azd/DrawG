@@ -6,8 +6,7 @@ export function useDraw() {
     const [canvasData, setCanvasData] = useState<string>('')
 
     useEffect(() => {
-        console.log('useEffect draw')
-        const handleDrawing = (data: any) => {
+        const handleDrawing = (data: { canvasData: string }) => {
             setCanvasData(data.canvasData)
         }
 
@@ -16,7 +15,7 @@ export function useDraw() {
         return () => {
             socket.off(`isDrawing`, handleDrawing)
         };
-    }, [socket])
+    }, [socket, canvasData])
 
     return canvasData
 }

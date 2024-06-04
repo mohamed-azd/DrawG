@@ -25,10 +25,6 @@ export function setupRoomHandlers(socket: Socket, io: Server) {
             const drawer = room.defineDrawer();
             // Store new infos in redis
             await redis.set(`room${roomId}`, JSON.stringify(room.getData()));
-            return {
-                drawer: drawer?.getData(),
-                words: getRandomWords(3),
-            };
         }
     });
 
@@ -38,7 +34,6 @@ export function setupRoomHandlers(socket: Socket, io: Server) {
     });
 
     socket.on("sendMessage", async (data: { roomId: string; message: string; username: string }) => {
-        console.log(data);
         io.to(`room:${data.roomId}`).emit("receiveMessage", {
             message: data.message,
             username: data.username,
@@ -48,8 +43,6 @@ export function setupRoomHandlers(socket: Socket, io: Server) {
         if (result) {
             // Get room infos
             const roomFound: RoomFromRedis = JSON.parse(result);
-            console.log("roomFound");
-            console.log(roomFound);
             const players = roomFound.players.map((player) => new Player(player.username, player.hasDrawn, player.score));
             const owner =
                 players.find((player) => player.getUsername() === roomFound.owner.username) ??
@@ -57,13 +50,11 @@ export function setupRoomHandlers(socket: Socket, io: Server) {
             const room = new Room(data.roomId, owner, players, roomFound.nbPlayersMax, roomFound.isPlaying, roomFound.wordToGuess);
 
             if (room.guess(data.message, data.username)) {
-                console.log("icii");
                 // Player has guessed the word
                 const newDrawer = room.defineDrawer();
                 await redis.set(`room:${data.roomId}`, JSON.stringify(room.getData()));
                 if (newDrawer) {
                     const words = getRandomWords(3);
-                    console.log(room.getData());
                     io.to(`room:${data.roomId}`).emit("roundEnd", { room: room.getData(), drawer: newDrawer, words });
                 } else {
                     io.to(`room:${data.roomId}`).emit("gameEnd", { room: room.getData() });

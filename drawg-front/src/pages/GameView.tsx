@@ -16,14 +16,13 @@ export function GameView() {
     const room: Room = location.state.room;
     const { currentUser, drawer, wordToGuess } = location.state;
 
+
     useEffect(() => {
         const handlerRoundEnd = (data: { room: object; drawer: object; words: Array<string> }) => {
-            console.log(data);
             navigate(`/room/${room.id}/wordChoice`, { state: { currentUser, data } });
         };
 
         const handlerGameEnd = (data: { room: object }) => {
-            console.log(data);
             navigate(`/room/${room.id}/results`, { state: { room: data.room } });
         };
 
