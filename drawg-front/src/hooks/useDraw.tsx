@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { SocketContext } from "../App";
 
-export function useDraw() {
+export default function useDraw() {
     const socket = useContext(SocketContext)
     const [canvasData, setCanvasData] = useState<string>(sessionStorage.getItem('canvasData') ?? '')
 

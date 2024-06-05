@@ -4,16 +4,19 @@ import { useContext, useEffect } from "react";
 import { SocketContext } from "../App";
 import { Room } from "../types";
 import ChatBox from "../components/chat/chatBox";
-import { useDraw } from "../hooks/useDraw";
+import useDraw from "../hooks/useDraw";
 import useChat from "../hooks/useChat";
+import useRoomAuthorization from "../hooks/useRoomAuthorization";
 
 export function GameView() {
-    const navigate = useNavigate();
+    useRoomAuthorization()
+    
     const location = useLocation();
+    const navigate = useNavigate();
     const socket = useContext(SocketContext);
     const canvasData = useDraw();
     const messages = useChat();
-    const room: Room = location.state.room;
+    const room: Room = location.state?.room;
     const { currentUser, drawer, wordToGuess } = location.state;
 
     

@@ -17,6 +17,7 @@ export default function Home() {
     const room = new RoomService()
     const response = await room.create(username, 5)
     socket.emit('joinRoom', (response.data.id))
+    sessionStorage.setItem('roomId', response.data.id)
     navigate(`/room/${response.data.id}`, { state: { roomInfos: response.data, username: username } })
   }
 
@@ -24,6 +25,7 @@ export default function Home() {
     const room = new RoomService()
     const response = await room.join(username, roomId)
     socket.emit('joinRoom', (response.data.id))
+    sessionStorage.setItem('roomId', response.data.id)
     navigate(`/room/${roomId}`, { state: { roomInfos: response.data, username: username } })
   }
 
