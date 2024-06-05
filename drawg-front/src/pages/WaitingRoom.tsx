@@ -21,6 +21,8 @@ export default function WaitingRoom() {
     }
 
     useEffect(() => {
+        sessionStorage.setItem('roomId', room.id)
+
         const handlePlayerJoined = (data: any) => {
             alert(`New player joined : ${data.newPlayer.username}`)
             setPlayers(data.room.players)
@@ -28,7 +30,7 @@ export default function WaitingRoom() {
         }
 
         const handleGameStarted = (data: any) => {
-            let navigationData = { currentUser: { username: username }, data: data }
+            const navigationData = { currentUser: { username: username }, data: data }
             navigate(`/room/${data.room.id}/wordChoice`, { state: navigationData })
         }
 

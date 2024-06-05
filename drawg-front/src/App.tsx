@@ -12,6 +12,9 @@ import GameResultsView from "./pages/GameResultsView";
 export const socket = io("http://localhost:3000", {
   transports: ["websocket"],
   upgrade: false,
+  query: {
+    roomId: sessionStorage.getItem('roomId')
+  }
 });
 
 export const SocketContext = createContext(socket);

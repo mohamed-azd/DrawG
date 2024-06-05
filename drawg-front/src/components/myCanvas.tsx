@@ -11,6 +11,15 @@ export default class MyCanvas extends Component<{ roomId: string, isDrawer: bool
         }
     }
 
+    componentDidMount(): void {
+        const savedData = sessionStorage.getItem('canvasData')
+        console.log('mouuunt')
+        console.log(typeof savedData)
+        if (savedData) {
+            this.loadableDraw?.loadSaveData(savedData, true)
+        }
+    }
+
     componentDidUpdate(prevProps: { roomId: string, isDrawer: boolean, data?: string }) {
         if (this.props.data && prevProps.data !== this.props.data && !this.props.isDrawer) {
             this.loadableDraw?.loadSaveData(this.props.data as string, true)

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { SocketContext } from "../App"
 import RoomService from "../services/room"
@@ -26,6 +26,10 @@ export default function Home() {
     socket.emit('joinRoom', (response.data.id))
     navigate(`/room/${roomId}`, { state: { roomInfos: response.data, username: username } })
   }
+
+  useEffect(() => {
+    sessionStorage.clear()
+  }, [])
 
   return (
     <div id="homePage">

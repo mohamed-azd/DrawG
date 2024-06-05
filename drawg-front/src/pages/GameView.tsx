@@ -16,6 +16,7 @@ export function GameView() {
     const room: Room = location.state.room;
     const { currentUser, drawer, wordToGuess } = location.state;
 
+    
 
     useEffect(() => {
         const handlerRoundEnd = (data: { room: object; drawer: object; words: Array<string> }) => {
